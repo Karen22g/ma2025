@@ -46,6 +46,8 @@ fig_funnel = go.Figure(go.Funnel(y=["Applications", "Admitted", "Enrolled"], x=[
 fig_funnel.update_layout(title=f"Admissions Funnel ({year_selected})")
 col3.plotly_chart(fig_funnel)
 
+st.title("📊 Terms behavior overview")
+
 # Gráficos en dos columnas
 col1, col2 = st.columns(2)
 
