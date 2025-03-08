@@ -58,7 +58,8 @@ st.plotly_chart(fig_funnel)
 # Ratio of Enrolled/Applications per Term
 data["Enrollment Ratio"] = data["Enrolled"] / data["Applications"]
 year_slider = st.slider("Select Year", min_value=int(data["Year"].min()), max_value=int(data["Year"].max()), value=int(data["Year"].min()))
-ratio_data = data[data["Year"] == year_slider]
+term_slider = st.selectbox("Select Term", data["Term"].unique())
+ratio_data = data[(data["Year"] == year_slider) & (data["Term"] == term_slider)]
 fig_ratio = px.bar(ratio_data, x="Term", y="Enrollment Ratio", title=f"Enrollment Ratio per Term ({year_slider})", color_discrete_sequence=["#87CEFA"])
 st.plotly_chart(fig_ratio)
 
