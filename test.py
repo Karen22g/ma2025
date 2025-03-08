@@ -68,4 +68,6 @@ data["Enrollment Ratio"] = data["Enrolled"] / data["Applications"]
 year_slider = col2.slider("Select Year", min_value=int(data["Year"].min()), max_value=int(data["Year"].max()), value=int(data["Year"].min()))
 ratio_data = data[(data["Year"] == year_slider)]
 fig_ratio = px.bar(ratio_data, x="Term", y="Enrollment Ratio", title=f"Enrollment Ratio per Term ({year_slider})", color_discrete_sequence=["#87CEFA"])
+fig_ratio.update_yaxes(range=[0, 1])  # Ajusta los valores según necesidad
+fig_ratio.update_traces(texttemplate='%{y:.2f}', textposition='outside')
 col2.plotly_chart(fig_ratio)
