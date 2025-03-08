@@ -122,7 +122,7 @@ corr_matrix = filtered_data[["Engineering Enrolled", "Business Enrolled", "Arts 
 correlation_fig = px.imshow(
     corr_matrix, 
     text_auto=True, 
-    title=f"Correlation Heatmap ({selected_term_correlation})", 
+    title=f"Correlation Heatmap ({selected_term})", 
     color_continuous_scale="blues",
     width=800,  # Ajusta el ancho según lo necesites
     height=600   # Ajusta la altura según lo necesites
