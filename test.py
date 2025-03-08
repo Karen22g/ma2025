@@ -26,7 +26,7 @@ t3.metric("Total Enrolled", f"{total_enrolled:,}")
 t4.metric("Avg. Retention Rate (%)", f"{avg_retention:.2f}%")
 t5.metric("Avg. Student Satisfaction (%)", f"{avg_satisfaction:.2f}%")
 
-st.write("De los 35.100 estudiantes que se han matriculado en la universidad, obtenemos que ha habido igual porcentaje de estudiantes ingresando tanto en otoño como primavera. Lo que sugiere a grosso modo que puede no existir una relación entre campañas realizadas en alguno de los periodos o que el inicio de distintos calendarios de clase pueden no afectar el interés por tomar los cursos")
+st.write("Observamos que el 59% de las personas que han aplicado a la universidad han sido admitidas y de ese porcentaje, solo el 39.8% decidió tomar los cursos. Además, en promedio, tomando todos los semestres y todos los años, la tasa de retención es de un 87.10% y la satisfacción un 82.6%")
 
 # Gráficos en dos columnas
 col1, col2, col3 = st.columns(3)
@@ -47,6 +47,8 @@ funnel_data = data[data["Year"] == year_selected]
 fig_funnel = go.Figure(go.Funnel(y=["Applications", "Admitted", "Enrolled"], x=[funnel_data["Applications"].sum(), funnel_data["Admitted"].sum(), funnel_data["Enrolled"].sum()], marker=dict(color=['#4682B4', '#5F9EA0', '#87CEFA'])))
 fig_funnel.update_layout(title=f"Admissions Funnel ({year_selected})")
 col3.plotly_chart(fig_funnel)
+
+st.write("De los 35.100 estudiantes que se han matriculado en la universidad, obtenemos que ha habido igual porcentaje de estudiantes ingresando tanto en otoño como primavera. Lo que sugiere a grosso modo que puede no existir una relación entre campañas realizadas en alguno de los periodos o que el inicio de distintos calendarios de clase pueden no afectar el interés por tomar los cursos")
 
 st.title("📊 Terms behavior overview")
 
