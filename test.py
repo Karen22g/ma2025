@@ -90,5 +90,6 @@ satisfaction_bar = px.bar(data, x="Year", y="Student Satisfaction (%)", color="T
 st.plotly_chart(satisfaction_bar)
 
 # 4. Additional Analysis: Correlation Heatmap
+cols = ["Enrolled","Student Satisfaction (%)","Retention Rate (%)"]
 correlation_fig = px.imshow(data.corr(), text_auto=True, title="Correlation Heatmap of Student Data", color_continuous_scale="blues")
 st.plotly_chart(correlation_fig)
