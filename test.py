@@ -26,6 +26,8 @@ t3.metric("Total Enrolled", f"{total_enrolled:,}")
 t4.metric("Avg. Retention Rate (%)", f"{avg_retention:.2f}%")
 t5.metric("Avg. Student Satisfaction (%)", f"{avg_satisfaction:.2f}%")
 
+st.write("De los 35.100 estudiantes que se han matriculado en la universidad, obtenemos que ha habido igual porcentaje de estudiantes ingresando tanto en otoño como primavera. Lo que sugiere a grosso modo que puede no existir una relación entre campañas realizadas en alguno de los periodos o que el inicio de distintos calendarios de clase pueden no afectar el interés por tomar los cursos")
+
 # Gráficos en dos columnas
 col1, col2, col3 = st.columns(3)
 
