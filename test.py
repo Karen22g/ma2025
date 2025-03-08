@@ -39,6 +39,9 @@ term_counts = data.groupby("Term")["Enrolled"].sum().reset_index()
 fig_pie = px.pie(term_counts, values="Enrolled", names="Term", title="Total Enrolled Students per Term", color_discrete_sequence=["#87CEFA", "#4682B4"])
 col1.plotly_chart(fig_pie)
 
+# Gráficos en dos columnas
+col1, col2 = st.columns(2)
+
 # Select term for time series analysis
 selected_term = st.selectbox("Select Term", data["Term"].unique())
 term_data = data[data["Term"] == selected_term]
@@ -49,14 +52,14 @@ fig_time.add_trace(go.Scatter(x=term_data["Year"], y=term_data["Applications"], 
 fig_time.add_trace(go.Scatter(x=term_data["Year"], y=term_data["Admitted"], mode='lines+markers', name='Admitted', line=dict(color='#5F9EA0')))
 fig_time.add_trace(go.Scatter(x=term_data["Year"], y=term_data["Enrolled"], mode='lines+markers', name='Enrolled', line=dict(color='#87CEFA')))
 fig_time.update_layout(title=f"Applications, Admitted, and Enrolled Trends ({selected_term})")
-st.plotly_chart(fig_time)
+col1.plotly_chart(fig_time)
 
 # Funnel Chart: Year selection
 year_selected = st.selectbox("Select Year", data["Year"].unique())
 funnel_data = data[data["Year"] == year_selected]
 fig_funnel = go.Figure(go.Funnel(y=["Applications", "Admitted", "Enrolled"], x=[funnel_data["Applications"].sum(), funnel_data["Admitted"].sum(), funnel_data["Enrolled"].sum()], marker=dict(color=['#4682B4', '#5F9EA0', '#87CEFA'])))
 fig_funnel.update_layout(title=f"Admissions Funnel ({year_selected})")
-st.plotly_chart(fig_funnel)
+col2.plotly_chart(fig_funnel)
 
 # Ratio of Enrolled/Applications per Term
 data["Enrollment Ratio"] = data["Enrolled"] / data["Applications"]
