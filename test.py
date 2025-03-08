@@ -74,22 +74,26 @@ col2.plotly_chart(fig_ratio)
 
 st.title("📊 Students retention and satisfaction")
 
+col1, col2 = st.columns(2)
+
 # 1. Time Series: Retention Rate vs. Student Satisfaction
 time_series_fig = go.Figure()
 time_series_fig.add_trace(go.Scatter(x=data["Year"], y=data["Retention Rate (%)"], mode='lines+markers', name='Retention Rate (%)', line=dict(color='#4682B4')))
 time_series_fig.add_trace(go.Scatter(x=data["Year"], y=data["Student Satisfaction (%)"], mode='lines+markers', name='Student Satisfaction (%)', line=dict(color='#5F9EA0')))
 time_series_fig.update_layout(title="Retention Rate and Student Satisfaction Over Time")
-st.plotly_chart(time_series_fig)
-
-# 2. Bar Chart: Retention Rate by Term Over Time
-retention_bar = px.bar(data, x="Year", y="Retention Rate (%)", color="Term", barmode='group', title="Retention Rate Over Time (Spring vs. Fall)", color_discrete_sequence=["#4682B4", "#5F9EA0"])
-st.plotly_chart(retention_bar)
-
-# 3. Bar Chart: Student Satisfaction by Term Over Time
-satisfaction_bar = px.bar(data, x="Year", y="Student Satisfaction (%)", color="Term", barmode='group', title="Student Satisfaction Over Time (Spring vs. Fall)", color_discrete_sequence=["#4682B4", "#5F9EA0"])
-st.plotly_chart(satisfaction_bar)
+col1.plotly_chart(time_series_fig)
 
 # 4. Additional Analysis: Correlation Heatmap
 cols = ["Enrolled","Student Satisfaction (%)","Retention Rate (%)"]
-correlation_fig = px.imshow(data.corr(), text_auto=True, title="Correlation Heatmap of Student Data", color_continuous_scale="blues")
-st.plotly_chart(correlation_fig)
+correlation_fig = px.imshow(data[cols].corr(), text_auto=True, title="Correlation Heatmap of Student Data", color_continuous_scale="blues")
+col2.plotly_chart(correlation_fig)
+
+col1, col2 = st.columns(2)
+
+# 2. Bar Chart: Retention Rate by Term Over Time
+retention_bar = px.bar(data, x="Year", y="Retention Rate (%)", color="Term", barmode='group', title="Retention Rate Over Time (Spring vs. Fall)", color_discrete_sequence=["#4682B4", "#5F9EA0"])
+col1.plotly_chart(retention_bar)
+
+# 3. Bar Chart: Student Satisfaction by Term Over Time
+satisfaction_bar = px.bar(data, x="Year", y="Student Satisfaction (%)", color="Term", barmode='group', title="Student Satisfaction Over Time (Spring vs. Fall)", color_discrete_sequence=["#4682B4", "#5F9EA0"])
+col2.plotly_chart(satisfaction_bar)
