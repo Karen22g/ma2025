@@ -27,7 +27,7 @@ t4.metric("Avg. Retention Rate (%)", f"{avg_retention:.2f}%")
 t5.metric("Avg. Student Satisfaction (%)", f"{avg_satisfaction:.2f}%")
 
 # Gráficos en dos columnas
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 
 # Bar Chart: Total applications and enrollments per year
 year_counts = data.groupby("Year")[["Applications", "Enrolled"]].sum().reset_index()
@@ -38,6 +38,13 @@ col2.plotly_chart(fig_bar)
 term_counts = data.groupby("Term")["Enrolled"].sum().reset_index()
 fig_pie = px.pie(term_counts, values="Enrolled", names="Term", title="Total Enrolled Students per Term", color_discrete_sequence=["#87CEFA", "#4682B4"])
 col1.plotly_chart(fig_pie)
+
+# Funnel Chart: Year selection
+year_selected = col3.selectbox("Select Year", data["Year"].unique())
+funnel_data = data[data["Year"] == year_selected]
+fig_funnel = go.Figure(go.Funnel(y=["Applications", "Admitted", "Enrolled"], x=[funnel_data["Applications"].sum(), funnel_data["Admitted"].sum(), funnel_data["Enrolled"].sum()], marker=dict(color=['#4682B4', '#5F9EA0', '#87CEFA'])))
+fig_funnel.update_layout(title=f"Admissions Funnel ({year_selected})")
+col2.plotly_chart(fig_funnel)
 
 # Gráficos en dos columnas
 col1, col2 = st.columns(2)
@@ -54,16 +61,9 @@ fig_time.add_trace(go.Scatter(x=term_data["Year"], y=term_data["Enrolled"], mode
 fig_time.update_layout(title=f"Applications, Admitted, and Enrolled Trends ({selected_term})")
 col1.plotly_chart(fig_time)
 
-# Funnel Chart: Year selection
-year_selected = col2.selectbox("Select Year", data["Year"].unique())
-funnel_data = data[data["Year"] == year_selected]
-fig_funnel = go.Figure(go.Funnel(y=["Applications", "Admitted", "Enrolled"], x=[funnel_data["Applications"].sum(), funnel_data["Admitted"].sum(), funnel_data["Enrolled"].sum()], marker=dict(color=['#4682B4', '#5F9EA0', '#87CEFA'])))
-fig_funnel.update_layout(title=f"Admissions Funnel ({year_selected})")
-col2.plotly_chart(fig_funnel)
-
 # Ratio of Enrolled/Applications per Term
 data["Enrollment Ratio"] = data["Enrolled"] / data["Applications"]
 year_slider = st.slider("Select Year", min_value=int(data["Year"].min()), max_value=int(data["Year"].max()), value=int(data["Year"].min()))
 ratio_data = data[(data["Year"] == year_slider)]
 fig_ratio = px.bar(ratio_data, x="Term", y="Enrollment Ratio", title=f"Enrollment Ratio per Term ({year_slider})", color_discrete_sequence=["#87CEFA"])
-st.plotly_chart(fig_ratio)
+col2.plotly_chart(fig_ratio)
