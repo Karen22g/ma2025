@@ -44,7 +44,7 @@ year_selected = col3.selectbox("Select Year", data["Year"].unique())
 funnel_data = data[data["Year"] == year_selected]
 fig_funnel = go.Figure(go.Funnel(y=["Applications", "Admitted", "Enrolled"], x=[funnel_data["Applications"].sum(), funnel_data["Admitted"].sum(), funnel_data["Enrolled"].sum()], marker=dict(color=['#4682B4', '#5F9EA0', '#87CEFA'])))
 fig_funnel.update_layout(title=f"Admissions Funnel ({year_selected})")
-col2.plotly_chart(fig_funnel)
+col3.plotly_chart(fig_funnel)
 
 # Gráficos en dos columnas
 col1, col2 = st.columns(2)
@@ -63,7 +63,7 @@ col1.plotly_chart(fig_time)
 
 # Ratio of Enrolled/Applications per Term
 data["Enrollment Ratio"] = data["Enrolled"] / data["Applications"]
-year_slider = st.slider("Select Year", min_value=int(data["Year"].min()), max_value=int(data["Year"].max()), value=int(data["Year"].min()))
+year_slider = col2.slider("Select Year", min_value=int(data["Year"].min()), max_value=int(data["Year"].max()), value=int(data["Year"].min()))
 ratio_data = data[(data["Year"] == year_slider)]
 fig_ratio = px.bar(ratio_data, x="Term", y="Enrollment Ratio", title=f"Enrollment Ratio per Term ({year_slider})", color_discrete_sequence=["#87CEFA"])
 col2.plotly_chart(fig_ratio)
