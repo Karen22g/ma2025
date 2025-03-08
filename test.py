@@ -76,6 +76,10 @@ fig_ratio.update_yaxes(range=[0, 1])  # Ajusta los valores según necesidad
 fig_ratio.update_traces(texttemplate='%{y:.2f}', textposition='outside')
 col2.plotly_chart(fig_ratio)
 
+st.write("Tanto en spring como fall, la cantidad de estudiantes que han intentado aplicar a la universidad tiene tendencia a la alta, solo en 2020 se observó menos estudiantes. Aunque si bien se observa que la cantidad de estudiantes matriculados pareció también aumentar, cuando lo comparamos con el total de estudiantes que aplicaron podemos observar que el porcentaje ha venido disminuyendo, donde se encontraba en 24.1% en 2018 y 2024 un 22.8%. Esto puede sugerir baja preparación en los aplicantes o criterios más rigurosos de selección, es importante revisar esta tendencia dado que reduce el ingreso que recibe la universidad y el menor acceso a programas de educación superior.")
+
+
+
 st.title("📊 Students retention and satisfaction")
 
 col1, col2 = st.columns(2)
