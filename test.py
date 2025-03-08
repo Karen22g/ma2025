@@ -109,15 +109,17 @@ st.write("Esto último sugiere un punto de análisis para las autoridades de la 
 
 st.title("📊 Students retention and satisfaction per department")
 
+# Gráficos en dos columnas
+col1, col2 = st.columns(2)
 # 1. Table: Enrolled per Department and Total Enrolled by Year
 st.markdown("###Enrollment by Department and Year")
-st.write("This table shows the number of enrolled students per department and the total enrollment for each year.")
+col1.write("This table shows the number of enrolled students per department and the total enrollment for each year.")
 enrollment_table = data.groupby(["Year","Term"])[["Engineering Enrolled", "Business Enrolled", "Arts Enrolled", "Science Enrolled", "Enrolled"]].sum().reset_index()
-st.dataframe(enrollment_table)
+col1.dataframe(enrollment_table)
 
 # 2. Correlation Heatmap: Enrollment per Department vs. Retention & Satisfaction
-selected_term_correlation = st.selectbox("Select Term", data["Term"].unique())
+selected_term_correlation = col2.selectbox("Select Term", data["Term"].unique())
 filtered_data = data[data["Term"] == selected_term_correlation]
 corr_matrix = filtered_data[["Engineering Enrolled", "Business Enrolled", "Arts Enrolled", "Science Enrolled", "Retention Rate (%)", "Student Satisfaction (%)"]].corr()
 correlation_fig = px.imshow(corr_matrix, text_auto=True, title=f"Correlation Heatmap ({selected_term_correlation})", color_continuous_scale="blues")
-st.plotly_chart(correlation_fig)
+col2.plotly_chart(correlation_fig)
