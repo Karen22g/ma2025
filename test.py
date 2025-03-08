@@ -118,8 +118,7 @@ enrollment_table = data.groupby(["Year","Term"])[["Engineering Enrolled", "Busin
 col1.dataframe(enrollment_table)
 
 # 2. Correlation Heatmap: Enrollment per Department vs. Retention & Satisfaction
-selected_term_correlation = col2.selectbox("Select Term", data["Term"].unique())
-filtered_data = data[data["Term"] == selected_term_correlation]
+filtered_data = data[data["Term"] == selected_term]
 corr_matrix = filtered_data[["Engineering Enrolled", "Business Enrolled", "Arts Enrolled", "Science Enrolled", "Retention Rate (%)", "Student Satisfaction (%)"]].corr()
-correlation_fig = px.imshow(corr_matrix, text_auto=True, title=f"Correlation Heatmap ({selected_term_correlation})", color_continuous_scale="blues")
+correlation_fig = px.imshow(corr_matrix, text_auto=True, title=f"Correlation Heatmap ({selected_term})", color_continuous_scale="blues")
 col2.plotly_chart(correlation_fig)
