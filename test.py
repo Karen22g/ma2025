@@ -111,8 +111,6 @@ st.title("📊 Students retention and satisfaction per department")
 
 # Gráficos en dos columnas
 # 1. Table: Enrolled per Department and Total Enrolled by Year
-st.markdown("###Enrollment by Department and Year")
-st.write("This table shows the number of enrolled students per department and the total enrollment for each year.")
 enrollment_table = data.groupby(["Year","Term"])[["Engineering Enrolled", "Business Enrolled", "Arts Enrolled", "Science Enrolled", "Enrolled"]].sum().reset_index()
 st.dataframe(enrollment_table)
 
