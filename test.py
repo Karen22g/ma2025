@@ -58,17 +58,6 @@ st.plotly_chart(fig_funnel)
 # Ratio of Enrolled/Applications per Term
 data["Enrollment Ratio"] = data["Enrolled"] / data["Applications"]
 year_slider = st.slider("Select Year", min_value=int(data["Year"].min()), max_value=int(data["Year"].max()), value=int(data["Year"].min()))
-term_slider = st.selectbox("Select Term", data["Term"].unique())
-ratio_data = data[(data["Year"] == year_slider) & (data["Term"] == term_slider)]
+ratio_data = data[(data["Year"] == year_slider)]
 fig_ratio = px.bar(ratio_data, x="Term", y="Enrollment Ratio", title=f"Enrollment Ratio per Term ({year_slider})", color_discrete_sequence=["#87CEFA"])
 st.plotly_chart(fig_ratio)
-
-# Ratio of Enrolled in Each Department
-department_ratios = ratio_data.melt(
-    id_vars=["Term"], 
-    value_vars=["Engineering Enrolled", "Business Enrolled", "Arts Enrolled", "Science Enrolled"], 
-    var_name="Department"
-)
-department_ratios["Department Enrollment Ratio"] = department_ratios["value"] / ratio_data.loc[ratio_data["Term"] == term_slider, "Enrolled"].sum()
-fig_dept_ratio = px.bar(department_ratios, x="Department", y="Department Enrollment Ratio", color="Term", barmode="group", title=f"Department Enrollment Ratios ({year_slider}, {term_slider})", color_discrete_sequence=["#4682B4", "#5F9EA0"])
-st.plotly_chart(fig_dept_ratio)
