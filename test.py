@@ -27,7 +27,7 @@ t4.metric("Avg. Retention Rate (%)", f"{avg_retention:.2f}%")
 t5.metric("Avg. Student Satisfaction (%)", f"{avg_satisfaction:.2f}%")
 
 # Gráficos en dos columnas
-col1, col2, col3 = st.columns(3)
+col1, col2 = st.columns(2)
 
 # Bar Chart: Total applications and enrollments per year
 year_counts = data.groupby("Year")[["Applications", "Enrolled"]].sum().reset_index()
