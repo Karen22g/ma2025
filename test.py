@@ -106,3 +106,18 @@ col2.plotly_chart(satisfaction_bar)
 
 st.write("Observamos que en el año 2020 el porcentaje de retención y satisfacción disminuyó, al igual que en las otras gráficas se observó que el número de aplicantes y matriculados disminuyó, esto puede estar relacionado con la pandemia de Covid-19 que motivó a distintos estudiantes o interesados en aplicar a dejar sus estudios por asuntos psicológicos, físicos, económicos, familiares, entre otros. Además, observamos que el nivel de satisfacción y retención de estudiantes es el mismo entre spring y fall y que, como era de esperarse, existe una alta correlación entre la satisfacción de los estudiantes y la cantidad de matriculados.")
 st.write("Esto último sugiere un punto de análisis para las autoridades de la universidad que deben diseñar estrategias de bienestar universitario como deportes, mejores espacios de estudio, actividades extracurriculares, calidad en los docentes para motivar la toma de los cursos, la satisfacción y por ende la retención y obtención de nuevos estudiantes.")
+
+st.title("📊 Students retention and satisfaction per department")
+
+# 1. Table: Enrolled per Department and Total Enrolled by Year
+st.markdown("###Enrollment by Department and Year")
+st.write("This table shows the number of enrolled students per department and the total enrollment for each year.")
+enrollment_table = data.groupby("Year")[["Engineering Enrolled", "Business Enrolled", "Arts Enrolled", "Science Enrolled", "Enrolled"]].sum().reset_index()
+st.dataframe(enrollment_table)
+
+# 2. Correlation Heatmap: Enrollment per Department vs. Retention & Satisfaction
+selected_term = st.selectbox("Select Term", data["Term"].unique())
+filtered_data = data[data["Term"] == selected_term]
+corr_matrix = filtered_data[["Engineering Enrolled", "Business Enrolled", "Arts Enrolled", "Science Enrolled", "Retention Rate (%)", "Student Satisfaction (%)"]].corr()
+correlation_fig = px.imshow(corr_matrix, text_auto=True, title=f"Correlation Heatmap ({selected_term})", color_continuous_scale="blues")
+st.plotly_chart(correlation_fig)
