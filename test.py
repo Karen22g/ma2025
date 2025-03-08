@@ -27,17 +27,17 @@ t4.metric("Avg. Retention Rate (%)", f"{avg_retention:.2f}%")
 t5.metric("Avg. Student Satisfaction (%)", f"{avg_satisfaction:.2f}%")
 
 # Gráficos en dos columnas
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 
-# Pie Chart: Total students per term
+# Bar Chart: Total applications and enrollments per year
+year_counts = data.groupby("Year")[["Applications", "Enrolled"]].sum().reset_index()
+fig_bar = px.bar(year_counts, x="Year", y=["Applications", "Enrolled"], title="Total Applications and Enrollments per Year", barmode='group', color_discrete_sequence=["#4682B4", "#87CEFA"])
+col2.plotly_chart(fig_bar)
+
+# Pie Chart: Total students enrolled per term
 term_counts = data.groupby("Term")["Enrolled"].sum().reset_index()
 fig_pie = px.pie(term_counts, values="Enrolled", names="Term", title="Total Enrolled Students per Term", color_discrete_sequence=["#87CEFA", "#4682B4"])
 col1.plotly_chart(fig_pie)
-
-# Bar Chart: Total students per year
-year_counts = data.groupby("Year")["Enrolled"].sum().reset_index()
-fig_bar = px.bar(year_counts, x="Year", y="Enrolled", title="Total Enrolled Students per Year", color_discrete_sequence=["#4682B4"])
-col2.plotly_chart(fig_bar)
 
 # Select term for time series analysis
 selected_term = st.selectbox("Select Term", data["Term"].unique())
