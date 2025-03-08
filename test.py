@@ -78,8 +78,6 @@ col2.plotly_chart(fig_ratio)
 
 st.write("Tanto en spring como fall, la cantidad de estudiantes que han intentado aplicar a la universidad tiene tendencia a la alta, solo en 2020 se observó menos estudiantes. Aunque si bien se observa que la cantidad de estudiantes matriculados pareció también aumentar, cuando lo comparamos con el total de estudiantes que aplicaron podemos observar que el porcentaje ha venido disminuyendo, donde se encontraba en 24.1% en 2018 y 2024 un 22.8%. Esto puede sugerir baja preparación en los aplicantes o criterios más rigurosos de selección, es importante revisar esta tendencia dado que reduce el ingreso que recibe la universidad y el menor acceso a programas de educación superior.")
 
-
-
 st.title("📊 Students retention and satisfaction")
 
 col1, col2 = st.columns(2)
@@ -105,3 +103,6 @@ col1.plotly_chart(retention_bar)
 # 3. Bar Chart: Student Satisfaction by Term Over Time
 satisfaction_bar = px.bar(data, x="Year", y="Student Satisfaction (%)", color="Term", barmode='group', title="Student Satisfaction Over Time (Spring vs. Fall)", color_discrete_sequence=["#4682B4", "#5F9EA0"])
 col2.plotly_chart(satisfaction_bar)
+
+st.write("Observamos que en el año 2020 el porcentaje de retención y satisfacción disminuyó, al igual que en las otras gráficas se observó que el número de aplicantes y matriculados disminuyó, esto puede estar relacionado con la pandemia de Covid-19 que motivó a distintos estudiantes o interesados en aplicar a dejar sus estudios por asuntos psicológicos, físicos, económicos, familiares, entre otros. Además, observamos que el nivel de satisfacción y retención de estudiantes es el mismo entre spring y fall y que, como era de esperarse, existe una alta correlación entre la satisfacción de los estudiantes y la cantidad de matriculados.")
+st.write("Esto último sugiere un punto de análisis para las autoridades de la universidad que deben diseñar estrategias de bienestar universitario como deportes, mejores espacios de estudio, actividades extracurriculares, calidad en los docentes para motivar la toma de los cursos, la satisfacción y por ende la retención y obtención de nuevos estudiantes.")
