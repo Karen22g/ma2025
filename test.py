@@ -8,7 +8,7 @@ st.set_page_config(page_title="Student Admissions Dashboard", layout="wide")
 st.title("📊 Student Admissions, Retention & Satisfaction Dashboard")
 
 # Cargar datos (Reemplazar con carga real de datos)
-data = pd.read_csv("data.csv")
+data = pd.read_csv("university_student_dashboard_data.csv")
 
 # Métricas generales
 total_applications = data['Applications'].sum()
