@@ -43,7 +43,7 @@ col1.plotly_chart(fig_pie)
 col1, col2 = st.columns(2)
 
 # Select term for time series analysis
-selected_term = st.selectbox("Select Term", data["Term"].unique())
+selected_term = col1.selectbox("Select Term", data["Term"].unique())
 term_data = data[data["Term"] == selected_term]
 
 # Time series
@@ -55,7 +55,7 @@ fig_time.update_layout(title=f"Applications, Admitted, and Enrolled Trends ({sel
 col1.plotly_chart(fig_time)
 
 # Funnel Chart: Year selection
-year_selected = st.selectbox("Select Year", data["Year"].unique())
+year_selected = col2.selectbox("Select Year", data["Year"].unique())
 funnel_data = data[data["Year"] == year_selected]
 fig_funnel = go.Figure(go.Funnel(y=["Applications", "Admitted", "Enrolled"], x=[funnel_data["Applications"].sum(), funnel_data["Admitted"].sum(), funnel_data["Enrolled"].sum()], marker=dict(color=['#4682B4', '#5F9EA0', '#87CEFA'])))
 fig_funnel.update_layout(title=f"Admissions Funnel ({year_selected})")
