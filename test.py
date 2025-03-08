@@ -71,3 +71,24 @@ fig_ratio = px.bar(ratio_data, x="Term", y="Enrollment Ratio", title=f"Enrollmen
 fig_ratio.update_yaxes(range=[0, 1])  # Ajusta los valores según necesidad
 fig_ratio.update_traces(texttemplate='%{y:.2f}', textposition='outside')
 col2.plotly_chart(fig_ratio)
+
+st.title("📊 Students retention and satisfaction")
+
+# 1. Time Series: Retention Rate vs. Student Satisfaction
+time_series_fig = go.Figure()
+time_series_fig.add_trace(go.Scatter(x=data["Year"], y=data["Retention Rate (%)"], mode='lines+markers', name='Retention Rate (%)', line=dict(color='#4682B4')))
+time_series_fig.add_trace(go.Scatter(x=data["Year"], y=data["Student Satisfaction (%)"], mode='lines+markers', name='Student Satisfaction (%)', line=dict(color='#5F9EA0')))
+time_series_fig.update_layout(title="Retention Rate and Student Satisfaction Over Time")
+st.plotly_chart(time_series_fig)
+
+# 2. Bar Chart: Retention Rate by Term Over Time
+retention_bar = px.bar(data, x="Year", y="Retention Rate (%)", color="Term", barmode='group', title="Retention Rate Over Time (Spring vs. Fall)", color_discrete_sequence=["#4682B4", "#5F9EA0"])
+st.plotly_chart(retention_bar)
+
+# 3. Bar Chart: Student Satisfaction by Term Over Time
+satisfaction_bar = px.bar(data, x="Year", y="Student Satisfaction (%)", color="Term", barmode='group', title="Student Satisfaction Over Time (Spring vs. Fall)", color_discrete_sequence=["#4682B4", "#5F9EA0"])
+st.plotly_chart(satisfaction_bar)
+
+# 4. Additional Analysis: Correlation Heatmap
+correlation_fig = px.imshow(data.corr(), text_auto=True, title="Correlation Heatmap of Student Data", color_continuous_scale="blues")
+st.plotly_chart(correlation_fig)
