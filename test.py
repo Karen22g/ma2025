@@ -66,9 +66,8 @@ st.plotly_chart(fig_ratio)
 department_ratios = ratio_data.melt(
     id_vars=["Term"], 
     value_vars=["Engineering Enrolled", "Business Enrolled", "Arts Enrolled", "Science Enrolled"], 
-    var_name="Department", 
-    value_name="Enrolled"
+    var_name="Department"
 )
-department_ratios["Department Enrollment Ratio"] = department_ratios["Enrolled"] / ratio_data.loc[ratio_data["Term"] == term_slider, "Enrolled"].sum()
+department_ratios["Department Enrollment Ratio"] = department_ratios["value"] / ratio_data.loc[ratio_data["Term"] == term_slider, "Enrolled"].sum()
 fig_dept_ratio = px.bar(department_ratios, x="Department", y="Department Enrollment Ratio", color="Term", barmode="group", title=f"Department Enrollment Ratios ({year_slider}, {term_slider})", color_discrete_sequence=["#4682B4", "#5F9EA0"])
 st.plotly_chart(fig_dept_ratio)
